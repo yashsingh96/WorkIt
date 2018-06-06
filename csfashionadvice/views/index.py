@@ -1,13 +1,24 @@
-from flask import Flask
+"""
+CS Fashion Advice index view.
+"""
 
-app = Flask(__name__)
+import os
+from flask import Flask, resquest
+import csfashionadvice
 
+UPLOAD_FOLDER = os.path.basename('uploads')
+csfashionadvice.app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
-@app.route("/")
-def hello():
-    return "Hi Mike and Elise"
+@csfashionadvice.app.route('/')
+def show_index():
+    return flask.render_template("index.html")
 
+@csfashionadvice.app.route('/score', methods=['POST'])
+def score_image():
+    image = request.files['image']
+    f = os.path.join(app.config['UPLOAD_FOLDER'], file.filename)
 
-if __name__ == '__main__':
-    app.run(debug=True)
+    file.save(f)
 
+    context = {'filename': f, 'score': score}
+    return flask.render_template("score.html", **context)
