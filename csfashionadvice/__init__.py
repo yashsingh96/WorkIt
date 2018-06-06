@@ -9,8 +9,6 @@ app = flask.Flask(__name__)  # pylint: disable=invalid-name
 # Read settings from config module (csfashionadvice/config.py)
 app.config.from_object('csfashionadvice.config')
 
-CORS(app)
-
 
 # Tell our app about views and model.  This is dangerously close to a
 # circular import, which is naughty, but Flask was designed that way.

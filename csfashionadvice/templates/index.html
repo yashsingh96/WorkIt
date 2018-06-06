@@ -1,8 +1,14 @@
-{ % extends 'base.html' %}
-<html lang="en">
-<head>CS Fashion Advice</head>
+{% extends 'base.html' %}
+{% block content %}
 
-<body>
-  
-</body>
-</html>
+  <div id="imageBox">
+    <form action="/score" method="post" enctype="multipart/form-data">
+      <span class="btn btn-default btn-file">
+        Browse... <input type="file" name="image">
+      </span>
+
+      <input type="submit" value="Score my Outfit" class="btn btn-primary">
+    </form>
+  </div>
+
+{% endblock %}
