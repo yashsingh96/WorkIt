@@ -1,10 +1,11 @@
+"""
+CS Fashion Advice index view.
+"""
+
 from flask import Flask
+from flask import request
+import csfashionadvice
 
-app = Flask(__name__)
-
-@app.route("/")
-def hello():
-    return "Hi Mike and Elise"
-
-if __name__ == '__main__':
-    app.run(debug=True)
+@csfashionadvice.app.route('/', methods=['GET', 'POST'])
+def show_index():
+    if request.method == 'POST':
