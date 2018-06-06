@@ -1,7 +1,7 @@
 """
 csfashionadvice package initializer.
 """
-import flask
+from flask import Flask
 
 # app is a single object used by all the code modules in this package
 app = flask.Flask(__name__)  # pylint: disable=invalid-name
