@@ -2,12 +2,14 @@ from _bisect import bisect
 from colorsys import rgb_to_hsv
 
 import pylab
+from PIL import Image
 from cv2.cv2 import imread
 from matplotlib import patches
 from sklearn.cluster import KMeans
 
 
 def main():
+    image = Image.open("monochromatic.png")
     # im = Image.open("monochromatic.png")
     # pixels = list(im.getdata())
     #
@@ -43,7 +45,7 @@ def main():
     # print(image.size)
     # imgdata = list(image.getdata())
 
-    pass
+    return
 
 
 def get_colours(img, plot):
