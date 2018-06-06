@@ -5,6 +5,7 @@ CS Fashion Advice index view.
 import os
 
 import flask
+
 import csfashionadvice
 
 UPLOAD_FOLDER = os.path.basename('uploads')
