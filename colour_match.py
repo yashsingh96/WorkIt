@@ -1,12 +1,10 @@
 from _bisect import bisect
 from colorsys import rgb_to_hsv
 
-from sklearn.cluster import KMeans
 import pylab
-import mahotas
-from PIL import Image
 from cv2.cv2 import imread
 from matplotlib import patches
+from sklearn.cluster import KMeans
 
 
 def main():
@@ -45,17 +43,15 @@ def main():
     # print(image.size)
     # imgdata = list(image.getdata())
 
-    img = imread('monochromatic.png')
-    height, width, dim = img.shape
+    pass
 
-    img = img[int(height / 4):int(3 * height / 4), int(width / 4):int(3 * width / 4), :]
-    height, width, dim = img.shape
 
-    pylab.imsave('out.png', img)
+def get_colours(img, plot):
+    height, width, dim = img.shape
 
     img_vec = pylab.np.reshape(img, [height * width, dim])
 
-    kmeans = KMeans(n_clusters=3)
+    kmeans = KMeans(n_clusters=2)
     kmeans.fit(img_vec)
 
     unique_l, counts_l = pylab.np.unique(kmeans.labels_, return_counts=True)
@@ -74,11 +70,28 @@ def main():
         ax.add_patch(patches.Rectangle((x_from, 0.05), 0.29, 0.9, alpha=None,
                                        facecolor='#%02x%02x%02x' % (
                                            cluster_center[2], cluster_center[1], cluster_center[0])))
-        x_from = x_from + 0.31
+        x_from = x_from + 0.4
 
-    pylab.plt.show()
+    if plot:
+        pylab.plt.show()
 
-    print(monochromatic(hsl_colours))
+    return hsl_colours
+
+
+def get_common_colours(src, plot=False):
+    img = imread(src)
+    height, width, dim = img.shape
+
+    img = img[int(height / 4):int(3 * height / 4), int(width / 3):int(2 * width / 3), :]
+    height, width, dim = img.shape
+
+    img_top = img[0:int(height * 2 / 5), 0:width, :]
+    top_colours = get_colours(img_top, plot)
+
+    img_bottom = img[int(height * 2 / 5):height, 0:width, :]
+    bottom_colours = get_colours(img_bottom, plot)
+
+    return top_colours
 
 
 def monochromatic(colours):
@@ -87,8 +100,6 @@ def monochromatic(colours):
     colour_vals = '0GROYGCBPVR'
 
     curr_colour = None
-
-    bad = 0
 
     for colour in colours:
         H, S, L = colour
@@ -104,8 +115,6 @@ def monochromatic(colours):
 
         if L > 97:
             continue
-
-        print(H, S, L)
 
         if curr_colour is None:
             curr_colour = bisect(hue_vals, H)
