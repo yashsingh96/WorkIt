@@ -3,7 +3,7 @@ CS Fashion Advice index view.
 """
 
 import os
-from flask import Flask, resquest
+from flask import Flask, request
 import csfashionadvice
 
 UPLOAD_FOLDER = os.path.basename('uploads')
@@ -15,10 +15,11 @@ def show_index():
 
 @csfashionadvice.app.route('/score', methods=['POST'])
 def score_image():
-    image = request.files['image']
+    file = request.files['image']
     f = os.path.join(app.config['UPLOAD_FOLDER'], file.filename)
 
     file.save(f)
+    score = 0
 
     context = {'filename': f, 'score': score}
     return flask.render_template("score.html", **context)
