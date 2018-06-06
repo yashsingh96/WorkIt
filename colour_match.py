@@ -1,8 +1,16 @@
 from _bisect import bisect
+from colorsys import rgb_to_hsv
+
+from sklearn.cluster import KMeans
+import pylab
+import mahotas
+from PIL import Image
+from cv2.cv2 import imread
+from matplotlib import patches
 
 
 def main():
-    # im = Image.open("monochromatic.jpg")
+    # im = Image.open("monochromatic.png")
     # pixels = list(im.getdata())
     #
     # width, height = im.size
@@ -26,30 +34,78 @@ def main():
     #     print(str)
     #
 
-    is_mono = [(111, 5, 10), (88, 5, 10), (135, 5, 10)]
-    print(monochromatic(is_mono))
+    # backgroundColor = (0,) * 3
+    # pixelSize = 80
+    #
+    # image = Image.open('monochromatic.png')
+    # image = image.resize((round(image.size[0] / pixelSize), round(image.size[1] / pixelSize)), Image.NEAREST)
+    # w,h = image.size
+    # image = image.crop((w/5, h/5, w*4/5, h*3/5))
+    #
+    # print(image.size)
+    # imgdata = list(image.getdata())
 
-    not_mono = [(40, 5, 10), (88, 5, 10), (135, 5, 10)]
-    print(monochromatic(not_mono))
+    img = imread('monochromatic.png')
+    height, width, dim = img.shape
+
+    img = img[int(height / 4):int(3 * height / 4), int(width / 4):int(3 * width / 4), :]
+    height, width, dim = img.shape
+
+    pylab.imsave('out.png', img)
+
+    img_vec = pylab.np.reshape(img, [height * width, dim])
+
+    kmeans = KMeans(n_clusters=3)
+    kmeans.fit(img_vec)
+
+    unique_l, counts_l = pylab.np.unique(kmeans.labels_, return_counts=True)
+    sort_ix = pylab.np.argsort(counts_l)
+    sort_ix = sort_ix[::-1]
+
+    fig = pylab.plt.figure()
+    ax = fig.add_subplot(111)
+    x_from = 0.05
+
+    hsl_colours = []
+
+    for cluster_center in kmeans.cluster_centers_[sort_ix]:
+        cluster_center = [int(cluster_center[0]), int(cluster_center[1]), int(cluster_center[2])]
+        hsl_colours.append(rgb_to_hsv(cluster_center[0] / 255, cluster_center[1] / 255, cluster_center[2] / 255))
+        ax.add_patch(patches.Rectangle((x_from, 0.05), 0.29, 0.9, alpha=None,
+                                       facecolor='#%02x%02x%02x' % (
+                                           cluster_center[2], cluster_center[1], cluster_center[0])))
+        x_from = x_from + 0.31
+
+    pylab.plt.show()
+
+    print(monochromatic(hsl_colours))
 
 
 def monochromatic(colours):
+    # print(colours)
     hue_vals = [-10, -5, -2, 15, 45, 65, 165, 180, 265, 300, 340, 360]
     colour_vals = '0GROYGCBPVR'
 
     curr_colour = None
 
+    bad = 0
+
     for colour in colours:
         H, S, L = colour
+        H = H * 360
+        S = S * 100
+        L = L * 100
 
         if S <= 10:
             H = -3
 
         if L <= 10:
-            H = -6
+            continue
 
         if L > 97:
-            H = -13
+            continue
+
+        print(H, S, L)
 
         if curr_colour is None:
             curr_colour = bisect(hue_vals, H)
