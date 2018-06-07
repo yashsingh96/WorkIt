@@ -44,5 +44,15 @@ def score_image():
         return redirect(url_for('show_index'))
 
 
+# @app.route('/show/<filename>')
+# def uploaded_file(filename):
+#     filename = 'http://127.0.0.1:5000/uploads/' + filename
+#     return render_template('template.html', filename=filename)
+
+@app.route('/uploads/<filename>')
+def send_file(filename):
+    return flask.send_from_directory(UPLOAD_FOLDER, filename)
+
+
 if __name__ == '__main__':
     app.run()

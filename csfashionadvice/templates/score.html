@@ -5,7 +5,7 @@
         <img src="{{ url_for('static', filename=filename) }}"/>
         <p>Score: {{ score }}</p>
 
-        <form action="/index" method="post" enctype="multipart/form-data">
+        <form action="/" method="get" enctype="multipart/form-data">
             <input type="submit" value="Submit Another Outfit" class="btn btn-primary">
         </form>
 
