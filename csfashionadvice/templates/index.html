@@ -4,11 +4,18 @@
   <div id="imageBox">
     <form action="/score" method="post" enctype="multipart/form-data">
       <span class="btn btn-default btn-file">
-        Browse... <input type="file" name="image">
+        <input type="file" name="image">
       </span>
+
+      <br><br><br>
 
       <input type="submit" value="Score my Outfit" class="btn btn-primary">
     </form>
+
+    <p class="error">
+      {{ error }}
+    </p>
+
   </div>
 
 {% endblock %}

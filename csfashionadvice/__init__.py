@@ -1,7 +1,6 @@
 """
 csfashionadvice package initializer.
 """
-import os
 import flask
 
 # app is a single object used by all the code modules in this package

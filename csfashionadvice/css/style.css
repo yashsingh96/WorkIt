@@ -1,0 +1,11 @@
+
+p.error {
+  color: red;
+}
+
+#imageBox {
+  margin: auto;
+  width: 50%;
+  border-style: solid;
+  padding: 25px;
+}
