@@ -12,8 +12,8 @@ APPLICATION_ROOT = '/'
 # SESSION_COOKIE_NAME = 'login'
 
 # File uploads to 'uploads/'
-UPLOAD_FOLDER = os.path.join(
-    os.path.dirname(os.path.dirname(os.path.realpath(__file__))), 'uploads'
-)
+# UPLOAD_FOLDER = os.path.join(
+#     os.path.dirname(os.path.dirname(os.path.realpath(__file__))), 'uploads'
+# )
 
 ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg', 'gif'])
