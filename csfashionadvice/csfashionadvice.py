@@ -1,10 +1,10 @@
 """
 CS Fashion Advice index view.
 """
-import flask
+import flask, os
 from flask import Flask, url_for, redirect
 from werkzeug import secure_filename
-import os
+from classifier import get_style_score
 
 app = Flask(__name__)
 UPLOAD_FOLDER = os.path.join(
@@ -33,13 +33,27 @@ def score_image():
             print("Should not get here.")
 
         filename = secure_filename(file.filename)
-        filename = os.path.join(app.config['UPLOAD_FOLDER'], filename)
-        file.save(filename)
+        f = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+        file.save(f)
 
-        context = {'filename': os.path.abspath(filename), 'score': 0}
+        filename = 'http://127.0.0.1:5000/uploads/' + filename
+
+        score = get_style_score(file, 'M')
+
+        context = {'filename': filename, 'score': score}
         return flask.render_template("score.html", **context)
     else:
         return redirect(url_for('show_index'))
+
+
+# @app.route('/show/<filename>')
+# def uploaded_file(filename):
+#     filename = 'http://127.0.0.1:5000/uploads/' + filename
+#     return render_template('template.html', filename=filename)
+
+@app.route('/uploads/<filename>')
+def send_file(filename):
+    return flask.send_from_directory(UPLOAD_FOLDER, filename)
 
 
 if __name__ == '__main__':
