@@ -1,21 +1,25 @@
 {% extends 'base.html' %}
 {% block content %}
 
-  <div id="imageBox">
-    <form action="/score" method="post" enctype="multipart/form-data">
+    <div id="imageBox">
+        <form action="/score" method="post" enctype="multipart/form-data">
       <span class="btn btn-default btn-file">
         <input type="file" name="image">
       </span>
 
-      <br><br><br>
+            <br><br><br>
 
-      <input type="submit" value="Score my Outfit" class="btn btn-primary">
-    </form>
+            <input type="submit" value="Score my Outfit" class="btn btn-primary">
+        </form>
+        <form method="POST">
+            <input name="text">
+            <input type="submit">
+        </form>
 
-    <p class="error">
-      {{ error }}
-    </p>
+        <p class="error">
+            {{ error }}
+        </p>
 
-  </div>
+    </div>
 
 {% endblock %}
