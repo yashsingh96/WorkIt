@@ -59,17 +59,14 @@ def score_image():
         elif ascore == -1 and gender == "M":
             atext = "Hm... maybe, but consider wearing pants."
         elif ascore == -3:
-            atext = "You're pushing it, but the Capital One attire saves you."
+            atext = "You're pushing it, but the Capital One attire saves you. Consider wearing pants."
         else:
             atext = "Um, let's take this offline..."
-
-
 
         if score == 0:
             stext = "Stunning!"
         if score == -1:
             stext = "Take another look in the mirror."
-
 
         context = {'filename': filename, 'score': stext, 'ascore': atext}
         return flask.render_template("score.html", **context)

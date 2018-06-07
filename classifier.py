@@ -69,7 +69,7 @@ def get_appropriate_score(image, gender, plot):
     # If not a button shirt, more casual. If has capital one logo, gives some leeway
     if gender == "M":
         if not button_shirt(image, gender):
-            score -= 1
+            score -= 0
         elif capital_one_logo(image):
             score += 1
 
