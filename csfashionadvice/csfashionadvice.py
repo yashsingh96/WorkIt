@@ -19,7 +19,16 @@ def show_index():
 @app.route('/score', methods=['POST'])
 def score_image():
     if flask.request.method == 'POST':
-        file = flask.request.files['image']
+        file = ''
+        try:
+            file = flask.request.files['image']
+        except KeyError:
+            context = {'error': 'Please upload a photo.'}
+            return flask.render_template("index.html", **context)
+
+        if not file:
+            print("Should not get here.")
+
         f = os.path.join(app.config['UPLOAD_FOLDER'], file.filename)
         file.save(f)
 
