@@ -2,7 +2,7 @@
 CS Fashion Advice index view.
 """
 import flask
-from flask import Flask
+from flask import Flask, url_for, redirect
 import os
 
 app = Flask(__name__)
@@ -15,7 +15,7 @@ def show_index():
     return flask.render_template("index.html")
 
 
-@app.route('/score', methods=['POST'])
+@app.route('/score', methods=['GET', 'POST'])
 def score_image():
     if flask.request.method == 'POST':
         file = ''
@@ -34,7 +34,7 @@ def score_image():
         context = {'filename': f, 'score': 0}
         return flask.render_template("score.html", **context)
     else:
-        print("I DONT WANT TO GET HERE")
+        return redirect(url_for('show_index'))
 
 
 if __name__ == '__main__':
