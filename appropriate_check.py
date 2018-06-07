@@ -11,6 +11,7 @@ def too_revealing(image, gender="M"):
     # image = image.crop((w / 4, h / 5, w * 3 / 4, h * 4 / 5))
     # w, h = image.size
 
+
     pixelSize = (w * h) / 10000
 
     image = image.resize((round(image.size[0] / pixelSize), round(image.size[1] / pixelSize)), Image.NEAREST)
