@@ -1,21 +1,22 @@
 from unittest import TestCase
 
-from colour_match import monochromatic, offspring
+from colour_match import monochromatic, offspring, get_common_colours
 
 
 class TestColourMatch(TestCase):
     def test_monochromatic(self):
-        is_mono = [(111, 35, 50), (88, 35, 90), (135, 35, 40)]
-        self.assertTrue(monochromatic(is_mono))
+        image = 'green-and-yellow.jpg'
+        self.assertTrue(monochromatic(get_common_colours(image, True)))
 
     def test_monochromatic_false(self):
-        not_mono = [(40, 35, 15), (88, 35, 50), (135, 35, 20)]
-        self.assertFalse(monochromatic(not_mono))
+        image = 'green-and-yellow.jpg'
+        self.assertFalse(monochromatic(get_common_colours(image)))
 
     def test_offspring(self):
-        is_offspring = [(61, 64, 64), (129, 44, 36)]
-        self.assertTrue(offspring(is_offspring))
+        image = 'images/good/analogous.jpg'
+        self.assertTrue(offspring(get_common_colours(image, True)))
 
-    def test_offspring_false(self):
-        not_offspring = [(61, 64, 64), (292, 60, 60)]
-        self.assertFalse(offspring(not_offspring))
+    # def test_offspring_false(self):
+    #     image = 'badoutfit.png'
+    #     colours = get_common_colours(image, True)
+    #     self.assertFalse(offspring(colours))

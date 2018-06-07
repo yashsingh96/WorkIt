@@ -1,10 +1,12 @@
+from sys import argv
+
 import cv2
 import matplotlib.pyplot as plt
-from sklearn.cluster import KMeans
 import numpy as np
 from sys import argv
 import argparse
 import collections
+from sklearn.cluster import KMeans
 
 def prune(labels, lst, threshold):
     for index in range(len(lst)-1):
@@ -28,17 +30,16 @@ def prune(labels, lst, threshold):
     print(lst)
     return lst, labels
 
-
 img = cv2.imread(argv[1])
 img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
 
 plt.figure()
 plt.axis("off")
-#plt.imshow(img),plt.colorbar(),plt.show()
+# plt.imshow(img),plt.colorbar(),plt.show()
 
 clusters = 8
 image = img.reshape((img.shape[0] * img.shape[1], 3))
-clt = KMeans(n_clusters = clusters)
+clt = KMeans(n_clusters=clusters)
 clt.fit(image)
 
 labels = np.copy(clt.labels_)
@@ -51,10 +52,9 @@ clusters = len(centers)
 classification = labels.reshape(img.shape[:2])
 #getting shirt color
 
-x_range = list(range(int(img.shape[1]*0.4), int(img.shape[1]*0.6)))
-y_top = list(range(int(img.shape[0]*0.5)))
-y_bottom = list(range(int(img.shape[0]*0.5), int(img.shape[0])))
-
+x_range = list(range(int(img.shape[1] * 0.4), int(img.shape[1] * 0.6)))
+y_top = list(range(int(img.shape[0] * 0.5)))
+y_bottom = list(range(int(img.shape[0] * 0.5), int(img.shape[0])))
 
 top_count = np.bincount(classification[:int(img.shape[0]*0.5), int(img.shape[1]*0.25):int(img.shape[1]*0.75)].flatten())
 bottom_count = np.bincount(classification[int(img.shape[0]*0.5):,int(img.shape[1]*0.25):int(img.shape[1]*0.75)].flatten())

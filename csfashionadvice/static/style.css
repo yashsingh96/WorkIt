@@ -1,0 +1,33 @@
+body {
+  background: #f4f4f4;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.error {
+  color: red;
+}
+
+#imageBox {
+  margin: auto;
+  width: 70%;
+  background-color: #b1d0d5;
+  padding: 25px;
+}
+
+.float-left {
+  float: left;
+}
+
+input[type=submit] {
+  margin: 10px 2px;
+  padding: 16px 32px;
+  text-align: center;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  background: #f4f4f4;
+}
+
+input[type=radio] {
+  margin: 0px 10px 0px 10px;
+
+}
