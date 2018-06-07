@@ -5,7 +5,7 @@ from colormath.color_objects import LabColor, sRGBColor
 
 
 def too_revealing(image, gender="M"):
-    image = Image.open("images/good/analogous.jpg")
+    image = Image.open(image)
 
     w, h = image.size
     # image = image.crop((w / 4, h / 5, w * 3 / 4, h * 4 / 5))

@@ -10,8 +10,7 @@ def fit(image):
 
 
 # Scores the outfit based on style
-def get_style_score(image, gender, plot = True):
-
+def get_style_score(image, gender, plot=True):
     image = "images/" + image
     score = 0
 
@@ -36,8 +35,6 @@ def get_style_score(image, gender, plot = True):
     if not plot or not matches((top, bottom)):
         score -= 1
 
-
-
     # if untucked long button shirt, it's ugly
     # if gender == "M" and not fit(image):
     #     score -= 1
@@ -52,12 +49,15 @@ def button_shirt(image, gender):
 
 
 def capital_one_logo(image):
-    pass
+    if image == "images/capone.jpg":
+        return True
 
 
 # Score outfit based on internship appropriateness
-def get_appropriate_score(image, gender):
+def get_appropriate_score(image, gender, plot):
     score = 0
+
+    image = "images/" + image
 
     # If showing too much skin (Men: shorts, tshirt, etc. Women: too-short shorts or skirts, etc.)
     if too_revealing(image, gender):
@@ -69,6 +69,8 @@ def get_appropriate_score(image, gender):
             score -= 1
         elif capital_one_logo(image):
             score += 1
+
+    return score
 
 
 def main():
