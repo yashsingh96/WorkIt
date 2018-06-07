@@ -2,6 +2,7 @@
 env/*
 lib/*
 bin/
+uploads/
 
 *.pyc
 __pycache__/
