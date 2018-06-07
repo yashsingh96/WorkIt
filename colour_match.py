@@ -68,7 +68,8 @@ def get_colours(img, plot):
 
     for cluster_center in kmeans.cluster_centers_[sort_ix]:
         cluster_center = [int(cluster_center[0]), int(cluster_center[1]), int(cluster_center[2])]
-        hsl_colours.append(rgb_to_hsv(cluster_center[0] / 255, cluster_center[1] / 255, cluster_center[2] / 255))
+        hsl_colours.append(rgb_to_hsv(cluster_center[2] / 255, cluster_center[1] / 255, cluster_center[0] / 255))
+
         ax.add_patch(patches.Rectangle((x_from, 0.05), 0.29, 0.9, alpha=None,
                                        facecolor='#%02x%02x%02x' % (
                                            cluster_center[2], cluster_center[1], cluster_center[0])))
@@ -87,13 +88,15 @@ def get_common_colours(src, plot=False):
     img = img[int(height / 4):int(3 * height / 4), int(width / 3):int(2 * width / 3), :]
     height, width, dim = img.shape
 
-    img_top = img[0:int(height * 2 / 5), 0:width, :]
-    top_colours = get_colours(img_top, plot)
+    # img_top = img[0:int(height * 2 / 5), 0:width, :]
+    # top_colours = get_colours(img_top, plot)
+    #
+    # img_bottom = img[int(height * 2 / 5):height, 0:width, :]
+    # bottom_colours = get_colours(img_bottom, plot)
 
-    img_bottom = img[int(height * 2 / 5):height, 0:width, :]
-    bottom_colours = get_colours(img_bottom, plot)
+    colours = get_colours(img, plot)
 
-    return top_colours
+    return colours
 
 
 def monochromatic(colours):
@@ -130,23 +133,8 @@ def monochromatic(colours):
 def offspring(colours):
     hue_vals = [-10, -5, -2, 15, 45, 65, 165, 180, 265, 300, 340, 360]
 
-    min_hue = 500
-    max_hue = 0
-    min_lum = 100
-    max_lum = 0
-    min_sat = 100
-    max_sat = 0
-
-    for colour in colours:
-        H, S, L = colour
-        min_hue = min(min_hue, H)
-        max_hue = max(max_hue, H)
-        min_lum = min(min_lum, L)
-        max_lum = max(max_lum, L)
-        min_sat = min(min_sat, S)
-        max_sat = max(max_sat, S)
-
-    return max_hue - min_hue < 100 and max_lum - min_lum < 50 and max_sat - min_sat < 50
+    colour1, colour2 = colours
+    return abs(colour1[0]*359 - colour2[0]*359) < 80
 
 
 def analogous(colours):
