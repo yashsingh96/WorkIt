@@ -33,10 +33,10 @@ def score_image():
             print("Should not get here.")
 
         filename = secure_filename(file.filename)
-        # f = os.path.join(app.config['UPLOAD_FOLDER'], file.filename)
-        file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+        filename = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+        file.save(filename)
 
-        context = {'filename': filename, 'score': 0}
+        context = {'filename': os.path.abspath(filename), 'score': 0}
         return flask.render_template("score.html", **context)
     else:
         return redirect(url_for('show_index'))

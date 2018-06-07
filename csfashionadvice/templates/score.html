@@ -2,7 +2,7 @@
 {% block content %}
 
     <div id="imageBox">
-        <img src="uploads/{{ filename }}" alt={{ filename }}>
+        <img src="{{ filename }}" alt="{{ filename }}">
         <p>Score: {{ score }}</p>
 
         <form action="/index" method="post" enctype="multipart/form-data">
