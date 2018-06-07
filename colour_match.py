@@ -138,7 +138,7 @@ def offspring(colours):
 
 
 def analogous(colours):
-    pass
+    return False
 
 
 def matches(colours):
@@ -147,6 +147,8 @@ def matches(colours):
 
     # monochromatic
     if monochromatic(colours):
+        print(colours)
+        print("hi")
         return True
 
     # analogous
