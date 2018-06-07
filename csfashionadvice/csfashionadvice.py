@@ -6,7 +6,6 @@ from flask import Flask
 import os
 
 app = Flask(__name__)
-
 UPLOAD_FOLDER = os.path.basename('uploads')
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
@@ -35,4 +34,8 @@ def score_image():
         context = {'filename': f, 'score': 0}
         return flask.render_template("score.html", **context)
     else:
-        flask.abort(404)
+        print("I DONT WANT TO GET HERE")
+
+
+if __name__ == '__main__':
+    app.run()
