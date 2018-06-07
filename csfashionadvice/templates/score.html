@@ -2,7 +2,7 @@
 {% block content %}
 
     <div id="imageBox">
-        <img src="{{ url_for('send_file', filename=filename) }}" alt="{{ filename }}">
+        <img src="{{ url_for('static', filename=filename) }}"/>
         <p>Score: {{ score }}</p>
 
         <form action="/" method="get" enctype="multipart/form-data">
