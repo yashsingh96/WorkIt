@@ -4,16 +4,14 @@ from colormath.color_diff import delta_e_cie2000
 from colormath.color_objects import LabColor, sRGBColor
 
 
-def main():
-    male = True
-
+def too_revealing(image, gender="M"):
     image = Image.open("images/good/analogous.jpg")
 
     w, h = image.size
-    image = image.crop((w / 4, h / 5, w * 3 / 4, h * 4 / 5))
-    w, h = image.size
+    # image = image.crop((w / 4, h / 5, w * 3 / 4, h * 4 / 5))
+    # w, h = image.size
 
-    pixelSize = (w * h) / 5000
+    pixelSize = (w * h) / 10000
 
     image = image.resize((round(image.size[0] / pixelSize), round(image.size[1] / pixelSize)), Image.NEAREST)
     w, h = image.size
@@ -46,17 +44,22 @@ def main():
 
     total_skin = total_skin / (w * h)
 
+    # debug
     print(total_skin)
 
     # male
-    if total_skin > .12 and male:
-        return False
+    if total_skin > .12 and gender == "M":
+        return True
 
-    #female
-    if total_skin > .20 and not male:
-        return False
+    # female
+    if total_skin > .20 and gender != "M":
+        return True
 
-    return True
+    return False
+
+
+def main():
+    print(too_revealing("hi", "M"))
 
 
 if __name__ == "__main__":
