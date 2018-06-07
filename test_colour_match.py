@@ -13,8 +13,8 @@ class TestColourMatch(TestCase):
         self.assertFalse(monochromatic(get_common_colours(image)))
 
     def test_offspring(self):
-        image = 'green-and-yellow.jpg'
-        self.assertTrue(offspring(get_common_colours(image)))
+        image = 'images/good/analogous.jpg'
+        self.assertTrue(offspring(get_common_colours(image, True)))
 
     # def test_offspring_false(self):
     #     image = 'badoutfit.png'

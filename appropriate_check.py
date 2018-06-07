@@ -5,9 +5,9 @@ from colormath.color_objects import LabColor, sRGBColor
 
 
 def main():
-    backgroundColor = (0,) * 3
+    male = True
 
-    image = Image.open("images/bad/shortsopenbutton.jpg")
+    image = Image.open("images/good/analogous.jpg")
 
     w, h = image.size
     image = image.crop((w / 4, h / 5, w * 3 / 4, h * 4 / 5))
@@ -49,7 +49,11 @@ def main():
     print(total_skin)
 
     # male
-    if total_skin > .12:
+    if total_skin > .12 and male:
+        return False
+
+    #female
+    if total_skin > .20 and not male:
         return False
 
     return True
