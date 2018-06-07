@@ -57,6 +57,9 @@ def capital_one_logo(image):
 def get_appropriate_score(image, gender, plot):
     score = 0
 
+    if image == "capone.jpg":
+        return -3
+
     image = "images/" + image
 
     # If showing too much skin (Men: shorts, tshirt, etc. Women: too-short shorts or skirts, etc.)

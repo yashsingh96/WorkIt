@@ -50,7 +50,28 @@ def score_image():
         # get gender from radio form submission
         gender = flask.request.form['gender']
 
-        context = {'filename': filename, 'ascore': get_appropriate_score(filename, gender, False), 'score': get_style_score(filename, gender, filename != "nomatch.jpg")}
+        ascore = get_appropriate_score(filename, gender, False)
+
+        score = get_style_score(filename, gender, filename != "nomatch.jpg")
+
+        if ascore == 0 or ascore == 1:
+            atext = "Wow! You're dressed to impress!"
+        elif ascore == -1 and gender == "M":
+            atext = "Hm... maybe, but consider wearing pants."
+        elif ascore == -3:
+            atext = "You're pushing it, but the Capital One attire saves you."
+        else:
+            atext = "Um, let's take this offline..."
+
+
+
+        if score == 0:
+            stext = "Stunning!"
+        if score == -1:
+            stext = "Take another look in the mirror."
+
+
+        context = {'filename': filename, 'score': stext, 'ascore': atext}
         return flask.render_template("score.html", **context)
     else:
         return redirect(url_for('show_index'))

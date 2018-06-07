@@ -3,7 +3,9 @@
 
     <div id="imageBox">
         <img src="{{ url_for('static', filename=filename) }}"/>
-        <p>Score: {{ score }}</p>
+        <p>Style Score: {{ score }}<br>
+            Appropriateness Score: {{ ascore }}
+        </p>
 
         <form action="/" method="get" enctype="multipart/form-data">
             <input type="submit" value="Submit Another Outfit" class="btn btn-primary">
