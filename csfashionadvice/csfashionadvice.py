@@ -47,7 +47,10 @@ def score_image():
         # f = os.path.join(app.config['UPLOAD_FOLDER'], file.filename)
         file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
 
-        context = {'filename': filename, 'score': get_style_score(filename, "M", filename != "nomatch.jpg")}
+        # get gender from radio form submission
+        gender = flask.request.form['gender']
+
+        context = {'filename': filename, 'score': get_style_score(filename, gender, filename != "nomatch.jpg")}
         return flask.render_template("score.html", **context)
     else:
         return redirect(url_for('show_index'))
