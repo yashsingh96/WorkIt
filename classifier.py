@@ -36,6 +36,8 @@ def get_style_score(image, gender, plot = True):
     if not plot or not matches((top, bottom)):
         score -= 1
 
+
+
     # if untucked long button shirt, it's ugly
     # if gender == "M" and not fit(image):
     #     score -= 1

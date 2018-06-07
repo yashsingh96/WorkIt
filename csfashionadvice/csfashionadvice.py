@@ -4,7 +4,7 @@ CS Fashion Advice index view.
 import os
 
 import flask
-from flask import Flask, url_for, redirect
+from flask import Flask, url_for, redirect, flash
 
 from classifier import get_style_score
 
@@ -12,13 +12,22 @@ app = Flask(__name__)
 UPLOAD_FOLDER = os.path.join(
     os.path.dirname(os.path.dirname(os.path.realpath(__file__))), 'uploads'
 )
-print(UPLOAD_FOLDER)
+
+app.secret_key = 'some_secret'
+
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 
 @app.route('/')
 def show_index():
     return flask.render_template("index.html")
+
+
+@app.route('/feedback')
+def show_feedback():
+    message = "Thanks for the feedback!"
+    flash(message)
+    return flask.render_template('test.html')
 
 
 @app.route('/score', methods=['GET', 'POST'])
