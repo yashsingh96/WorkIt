@@ -11,6 +11,8 @@ def fit(image):
 
 # Scores the outfit based on style
 def get_style_score(image, gender, plot = True):
+
+    image = "images/" + image
     score = 0
 
     top, bottom = get_colours(image)

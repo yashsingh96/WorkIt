@@ -6,6 +6,8 @@ import os
 import flask
 from flask import Flask, url_for, redirect
 
+from classifier import get_style_score
+
 app = Flask(__name__)
 UPLOAD_FOLDER = os.path.join(
     os.path.dirname(os.path.dirname(os.path.realpath(__file__))), 'uploads'
@@ -36,7 +38,7 @@ def score_image():
         # f = os.path.join(app.config['UPLOAD_FOLDER'], file.filename)
         file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
 
-        context = {'filename': filename, 'score': 0}
+        context = {'filename': filename, 'score': get_style_score(filename, "M", False)}
         return flask.render_template("score.html", **context)
     else:
         return redirect(url_for('show_index'))
